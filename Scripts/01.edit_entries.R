@@ -364,7 +364,7 @@ flat_to_matrix <- function(Dt, allm_consts = NULL,
 d <- split(d, d$locality)
 
 #Load a and b constants
-traits <- readODS::read_ods("Data/traits_20210613.xlsx")
+traits <- readODS::read_ods("Data/traits_20210613.ods")
 
 allm_consts <- as.data.frame(traits[ , c("a", "b")])
 
