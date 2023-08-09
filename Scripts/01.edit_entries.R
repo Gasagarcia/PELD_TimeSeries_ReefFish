@@ -364,7 +364,7 @@ flat_to_matrix <- function(Dt, allm_consts = NULL,
 d <- split(d, d$locality)
 
 #Load a and b constants
-traits <- readODS::read_ods("Data/traits_20210613.ods")
+traits <- readODS::read_ods("Data/traits_210613.ods")
 
 allm_consts <- as.data.frame(traits[ , c("a", "b")])
 
@@ -467,7 +467,7 @@ d <- readRDS("R_Objects/edited.rds")
 d <- split(d, d$locality)
 
 #Define groups
-traits <- readxl::read_excel("Data/traits_20200512.xlsx")
+traits <- readODS::read_ods("Data/traits_210613.ods")
 
 allm_consts <- as.data.frame(traits[ , c("a", "b")])
 
@@ -482,19 +482,39 @@ groups[groups$groups1 == 'Small_3rd', 'groups1'] <- 'Large_3rd'
 
 
 #Load groups from quimbayo et al for comparison
-atl_trt_dt <- readxl::read_excel("Data/Base_Juan.xlsx")
-groups$groups2 <- atl_trt_dt$Diet[match(groups$code, atl_trt_dt$Code)]
+atl_trt_dt <- read.csv2("Data/Fish_aspects_EasternPacific_Atlantic_Realms.csv")
+groups$groups2 <- atl_trt_dt$Diet[match(groups$code, 
+                                        paste(substr(atl_trt_dt$Genus, 1, 3),
+                                              substr(atl_trt_dt$Species, 1, 3),
+                                              sep = "_"))]
 
 #Fill in blanks
-groups$groups2[
-  groups$code %in% 
-    c("can_und", "cep_hib", "chr_limb", 
-      "cor_sp", "gin_cir", "hal_spp",
-      "hyp_ame", "kyp_inc", "kyp_spp",
-      "lac_trg", "mal_lia", "mal_sp",
-      "cep_fur", "spa_ssp", "spa_spp")] <- c("fc", "fc", "pk", "om", "fc",
-                                             "im", "im", "hm", "hm", "is",
-                                             "im", "im", "pk", "hd", "hd")
+groups <- groups %>% 
+  dplyr::mutate(groups2 = ifelse(is.na(groups2), 
+                                 dplyr::case_when(code %in% "car_per" ~ "fc",
+                                                  code %in% "neg_bre" ~ "fc",
+                                                  code %in% "cep_fur" ~ "pk",
+                                                  code %in% "cep_hib" ~ "fc",
+                                                  code %in% "can_und" ~ "fc",
+                                                  code %in% "eng_anc" ~ "pk",
+                                                  code %in% "kyp_inc" ~ "hm",
+                                                  code %in% "apo_sp" ~ "pk",
+                                                  code %in% "cor_sp" ~ "om",
+                                                  code %in% "lac_trg" ~ "is",
+                                                  code %in% "hyp_ame" ~ "im",
+                                                  code %in% "mal_lia" ~ "im",
+                                                  code %in% "mal_sp" ~ "im",
+                                                  code %in% "ant_sal" ~ "pk",
+                                                  code %in% "spa_spp" ~ "hm",
+                                                  code %in% "hal_spp" ~ "im",
+                                                  code %in% "nar_bra" ~ "im",
+                                                  code %in% "kyp_spp" ~ "hm",
+                                                  code %in% "aet_nar" ~ "im",
+                                                  code %in% "gin_cir" ~ "im",
+                                                  code %in% "spa_ssp" ~ "hm"), 
+                                 groups2))
+  
+  
 all(complete.cases(groups))
 
 
