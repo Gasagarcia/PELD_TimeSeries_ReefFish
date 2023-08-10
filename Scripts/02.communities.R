@@ -568,9 +568,9 @@ Map(function(x, y, i) {
 plt_dt <-  plyr::ldply(RDA_boot, function(x) {
   eig <- length(x$CCA$eig)
   d <- data.frame(Code = rownames(vegan::scores(x, choices = 1, display = "cn")),
-             `colnames<-`(vegan::scores(x, choices = c(1:6),
-                                        display = "cn"),
-                          paste0("dbRDA", 1:6)))
+                  `colnames<-`(vegan::scores(x, choices = c(1:6),
+                                             display = "cn"),
+                               paste0("dbRDA", 1:6)))
   d$Year <- as.numeric(stringr::str_remove(d$Code, "year"))
   d
 }, .id = "Island")
@@ -585,7 +585,7 @@ plt_dt %>%
   facet_wrap(vars(Island), nrow = 2, scales = 'free') +
   theme_bw() + theme(panel.grid = element_blank())
 
- 
+
 #Plot components as a function of years
 #Filter for significant trends
 ## First Melt data
@@ -649,7 +649,7 @@ plt_dt %>%
   geom_hline(yintercept = 0, linetype = 2, color = "grey") +
   scale_x_continuous(breaks = c(2*1:10)) +
   theme_bw() + theme(panel.grid = element_blank())
-  
+
 
 #### Interpret species placement within components ####
 library(magrittr); library(ggplot2)
@@ -657,12 +657,12 @@ library(magrittr); library(ggplot2)
 plt_spp_dt <-  plyr::ldply(RDA_boot, function(x) {
   eig <- length(x$CCA$eig)
   data.frame(Code = rownames(vegan::scores(x, choices = 1, 
-                                             display = "species")),
+                                           display = "species")),
              `colnames<-`(vegan::scores(x, choices = 1:6, 
-                             display = "species"),
+                                        display = "species"),
                           paste0("dbRDA", 1:6)))
-    
-             # vegan::scores(x, choices = eig + 1:3, display = "species"))
+  
+  # vegan::scores(x, choices = eig + 1:3, display = "species"))
 }, .id = "Island")
 
 head(plt_spp_dt)
@@ -681,30 +681,30 @@ library(dplyr)
 #Get mean biomass and abundance
 plt_spp_dt <- plt_spp_dt %>%
   left_join(
-  K <- plyr::ldply(Dt_boot, function(x) {
-    k <- data.frame(x$mass, select(x$pred, sites, c_depth, year)) %>% 
-      # Average all censuses within a same depth
-      group_by(c_depth, sites, year) %>%
-      summarise_all(mean) %>% ungroup %>%
-      select(-c_depth) %>% 
-      # Average within sites
-      group_by(sites, year) %>%
-      summarise_all(mean) %>% ungroup() %>%
-      select(-sites) %>% 
-      # Average within within years
-      group_by(year) %>%
-      summarise_all(mean) %>%
-      ungroup() %>% select(-year)
-    # Get temporal mean and SD in normal and wisconsin transformed values
-    data.frame(Mass = apply(k, 2, mean), 
+    K <- plyr::ldply(Dt_boot, function(x) {
+      k <- data.frame(x$mass, select(x$pred, sites, c_depth, year)) %>% 
+        # Average all censuses within a same depth
+        group_by(c_depth, sites, year) %>%
+        summarise_all(mean) %>% ungroup %>%
+        select(-c_depth) %>% 
+        # Average within sites
+        group_by(sites, year) %>%
+        summarise_all(mean) %>% ungroup() %>%
+        select(-sites) %>% 
+        # Average within within years
+        group_by(year) %>%
+        summarise_all(mean) %>%
+        ungroup() %>% select(-year)
+      # Get temporal mean and SD in normal and wisconsin transformed values
+      data.frame(Mass = apply(k, 2, mean), 
                  Sd = apply(k, 2, sd),
                  trMass = colMeans(vegan::wisconsin(k)),
                  trSd = apply(vegan::wisconsin(k), 2, sd),
                  code = colnames(k)
                  
-      
+                 
       )
-}, .id = "Island"), by = c(Island = "Island", Code = "code"))
+    }, .id = "Island"), by = c(Island = "Island", Code = "code"))
 
 # data.frame(Mass = colMeans(x$mass), 
 #            Sd = apply(x$mass, 2, sd),
@@ -814,7 +814,7 @@ plt_dt %>%
   facet_wrap(vars(Island), nrow = 4, scales = 'free') +
   theme_bw() + theme(panel.grid = element_blank()) +
   
-plt_spp_dt %>%
+  plt_spp_dt %>%
   plyr::mutate(Island = forcats::fct_relevel(Island, Islands)) %>%
   plyr::mutate(Island = plyr::revalue(
     Island, c('noronha' = "Fernando de Noronha", 
@@ -861,8 +861,8 @@ plt_spp_dt %>%
   facet_wrap(vars(Island), nrow = 4, scales = 'free') +
   coord_cartesian(xlim = c(-2.5,3), ylim = c(-2,2)) +
   theme_bw() + theme(panel.grid = element_blank()) +
-
-patchwork::plot_layout(ncol = 2, guides = "collect")
+  
+  patchwork::plot_layout(ncol = 2, guides = "collect")
 
 
 
