@@ -1,5 +1,4 @@
 # PELD-ILOC Reef fish time series analysis
-Gabriel Garcia
 
 ### Project purpose
 
@@ -8,6 +7,12 @@ gathered by PELD-ILOC and associated researchers in four Brazilian
 Oceanic Islands.
 
 ### About PELD-ILOC
+
+<div>
+
+[![](Figures/PELDILOC.svg)](https://peldiloc.sites.ufsc.br/pt/)
+
+</div>
 
 PELD (Programa de Pesquisas Ecológicas de Longa Duração) is a Brazilian
 government funded initiative to install long term monitoring programs
