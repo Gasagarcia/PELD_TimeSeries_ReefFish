@@ -1,13 +1,18 @@
 # PELD-ILOC Reef fish time series analysis
-Gabriel Garcia
 
-### Project purpose
+### Page purpose
 
 Share the workflow used to analyze the reef fish monitoring data
 gathered by PELD-ILOC and associated researchers in four Brazilian
 Oceanic Islands.
 
 ### About PELD-ILOC
+
+<div>
+
+[![](Figures/PELDILOC.svg)](https://peldiloc.sites.ufsc.br/pt/)
+
+</div>
 
 PELD (Programa de Pesquisas Ecológicas de Longa Duração) is a Brazilian
 government funded initiative to install long term monitoring programs
@@ -72,11 +77,11 @@ Atlantic reef fish traits database
 (Fish_aspects_EasternPacific_Atlantic_Realms.csv) and a file containing
 traits (traits_210613.ods).
 
-### Code authors
+#### Code authors
 
 Gabriel Garcia and Murilo Dias
 
-### Contributors
+#### Contributors
 
 Guilherme Longo, Carlos Eduardo Ferreira, Sérgio Floeter, Ronaldo
 Francini-Filho
