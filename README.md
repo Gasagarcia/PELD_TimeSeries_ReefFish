@@ -67,15 +67,15 @@ All analysis were written in R:
 
 5.  05.Species.R  
     Uses mixed linear models to estimate each reef fish species biomass
-    through time
+    through time.
 
 ### Data
 
 Data folder contains 3 files: The time series
 (Final_data_peld_2019_11_18.csv), a currently no longer used copy of the
-Atlantic reef fish traits database
-(Fish_aspects_EasternPacific_Atlantic_Realms.csv) and a file containing
-traits (traits_210613.ods).
+Atlantic reef fish traits [database](https://doi.org/10.1002/ecy.3298)
+(Fish_aspects_EasternPacific_Atlantic_Realms.csv) and a file containing 
+traits obtained from [fishbase](fishbase.se) (traits_210613.ods).
 
 #### Code authors
 
